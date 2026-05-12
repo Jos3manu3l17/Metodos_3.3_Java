@@ -16,6 +16,65 @@ public class caso16 {
     // pero internamente el sistema debe manejar los cálculos con alta precisión decimal para evitar errores de redondeo que comprometan la vida de la tripulación 
     // en el fondo del océano. 
 
-    
+    // Constante global
+    static final double COEFICIENTE_TITANIO = 1.37;
 
+    public String validarSensores(double velocidad, double presion) {
+        if (presion < 0 || velocidad > 15) {
+            return "⚠ ALERTA DE COLISIÓN: Sensores fuera de rango. Servomotores bloqueados.";
+        }
+        return "Sensores operando dentro de parámetros seguros.";
+    }
+
+    public double calcularIndice(double velocidad, double presion) {
+        return (presion * COEFICIENTE_TITANIO) / velocidad;
+    }
+
+    public String evaluarIntegridad(double indice) {
+        if (indice >= 1.5) {
+            return "Integridad ÓPTIMA → Iniciar succión neumática.";
+        } else if (indice >= 1.0) {
+            return "Integridad INESTABLE → Activar propulsores de frenado.";
+        } else {
+            return "Integridad CRÍTICA → Abortando acoplamiento y sellando compartimentos.";
+        }
+    }
+
+    public String generarAlerta(double velocidad, double presion) {
+        double tiempo = 100 / velocidad;
+        return "REPORTE DE ALERTA\nVelocidad: " + velocidad +
+               "\nPresión: " + presion +
+               "\nTiempo estimado para impacto: " + tiempo + " segundos.";
+    }
+
+    public String generarReporte(String sensores, String decision, double indice) {
+        return "\n--- REPORTE NEMO-1 ---" +
+               "\nEstado Sensores: " + sensores +
+               "\nÍndice de Integridad: " + indice +
+               "\nDecisión del sistema: " + decision;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        caso16 sistema = new caso16();
+
+        System.out.println("Velocidad de aproximación (nudos): ");
+        double velocidad = sc.nextDouble();
+
+        System.out.println("Presión hidrostática (atmósferas): ");
+        double presion = sc.nextDouble();
+
+        String estadoSensores = sistema.validarSensores(velocidad, presion);
+
+        if (estadoSensores.contains("ALERTA")) {
+            System.out.println(sistema.generarAlerta(velocidad, presion));
+        } else {
+            double indice = sistema.calcularIndice(velocidad, presion);
+            String decision = sistema.evaluarIntegridad(indice);
+            System.out.println(sistema.generarReporte(estadoSensores, decision, indice));
+        }
+    }
 }
+
+

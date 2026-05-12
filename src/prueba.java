@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class prueba {
 
-    // Caso 81: Sistema inteligente de administración y monitoreo de empresas de fabricación de dispositivos médicos: 
+    // inteligente de administración y monitoreo de empresas de fabricación de dispositivos médicos: 
     // Una compañía internacional de tecnología médica necesita implementar un sistema inteligente capaz de controlar 
     // líneas de producción, pruebas de calidad, distribución y mantenimiento de dispositivos médicos utilizados en 
     // hospitales y clínicas. El sistema debe registrar información sobre componentes electrónicos, procesos de ensamblaje, 
